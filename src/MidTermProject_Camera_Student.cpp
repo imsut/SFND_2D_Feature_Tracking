@@ -17,29 +17,19 @@
 #include "matching2D.hpp"
 
 #include <boost/program_options.hpp>
-#include <boost/histogram.hpp>
-#include <boost/format.hpp>
 
 using namespace std;
 
 void task7(const std::string detectorType, const std::vector<cv::KeyPoint> keypoints, size_t imgIndex) {
-    //auto h = boost::histogram::make_histogram(boost::histogram::axis::regular<>(10, 1.0, 50.0));
-    auto h = boost::histogram::make_histogram(boost::histogram::axis::regular<float, boost::histogram::axis::transform::log>(10, 1.0, 50.0));
-
     float minSize = 1000000.0;
     float maxSize = 0.0;
     for (const auto& kp : keypoints) {
-        h(kp.size);
         minSize = std::min(minSize, kp.size);
         maxSize = std::max(maxSize, kp.size);
     }
 
     cout << "Detector " << detectorType << " founds " << keypoints.size()
         << " keypoints in image " << imgIndex << " with min/max = " << minSize << "/" << maxSize << "." << std::endl;
-
-    for (const auto& x : boost::histogram::indexed(h)) {
-        std::cout << boost::format("bin %i [ %.1f, %.1f ): %i\n") % x.index() % x.bin().lower() % x.bin().upper() % *x;
-    }
 }
 
 void task8(const std::string& detectorType, const std::string& descriptorType, const std::vector<cv::DMatch>& matches, size_t imgIndex) {
