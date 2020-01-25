@@ -77,7 +77,7 @@ int main(int argc, const char *argv[])
     /* INIT VARIABLES AND DATA STRUCTURES */
 
     // data location
-    string dataPath = "/home/kenkawamoto/personal/udacity/SFND_2D_Feature_Tracking/";
+    string dataPath = "./";
 
     // camera
     string imgBasePath = dataPath + "images/";
